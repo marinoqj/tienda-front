@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/util 
+		http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<http pattern="/static/**" security="none" />
+	
+	<http auto-config="true"  use-expressions="true">
+		<intercept-url pattern="/index.jsp" access="permitAll"/>
+		<intercept-url pattern="/login**" access="permitAll"/>
+		<intercept-url pattern="/logout.do" access="permitAll"/>		
+		<intercept-url pattern="/denied.do" access="hasAuthority('Usuario')"/>
+		<intercept-url pattern="/sec/**" access="hasAuthority('Usuario')"/>
+<!-- 	<intercept-url pattern="/sec/gestor/**" access="hasAuthority('Gestor')"/> -->
+		<intercept-url pattern="/**" access="permitAll" />
+
+		
+		<form-login login-page="/login.do"  
+			authentication-failure-url="/login-failure.do" 
+			default-target-url="/loginController.do" always-use-default-target="true"/>
+		
+		<access-denied-handler error-page="/denied.do"/>
+		
+		<logout invalidate-session="true" 
+			logout-success-url="/logout/success" 
+			logout-url="/logout"/>
+			
+		<csrf disabled="true"/>
+		
+	</http>
+	
+	<authentication-manager>
+	        <authentication-provider user-service-ref="customUserDetailsService">
+	        	<password-encoder ref="encoder" />
+	        </authentication-provider>
+	</authentication-manager>
+	
+	<beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+	
+</beans:beans>

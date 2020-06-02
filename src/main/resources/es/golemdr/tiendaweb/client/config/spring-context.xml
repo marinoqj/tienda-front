@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+			            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+			            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd  
+			            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+			            http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd 
+			            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd  
+			            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">            
+       
+    <context:annotation-config/>
+    
+    <!-- Scans the classpath of this application for @Components to deploy as beans -->
+	<context:component-scan base-package="es.golemdr.tiendaweb.client.controller" />
+  	
+  	<!-- Configures the @Controller programming model -->
+	<mvc:annotation-driven />	
+  	
+	<!-- VIEWS -->
+	<bean id="excel" class="es.golemdr.tiendaweb.client.controller.views.ExcelView"/>
+	<bean id="pdf" class="es.golemdr.tiendaweb.client.controller.views.PDFView"/>
+	<bean id="download" class="es.golemdr.tiendaweb.client.controller.views.DownloadFileView"/>
+	
+		
+<!-- 	<bean id="multiReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"> -->
+<!-- 		<property name="url" value="classpath:jasper/ListadoReport.jrxml"/> -->
+<!-- 		<property name="reportDataKey" value="datasource"/> -->
+<!-- 	</bean> -->
+  	
+  	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
+       <property name="order" value="0" />
+    </bean>
+    
+	<bean id="contentNegotiationManager"
+	  class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+	    <property name="favorPathExtension" value="true" />
+	    <property name="favorParameter" value="false"/>
+	    <property name="ignoreAcceptHeader" value="true" />
+	    <property name="defaultContentType" value="application/json" />
+	    <property name="useJaf" value="false" />
+	</bean>
+	
+	<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager" />    
+  	
+  	<!-- TILES -->
+  	
+ 	 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+   		<property name="definitions">
+	     <list>
+	       <value>/WEB-INF/classes/es/golemdr/tiendaweb/client/config/tiles-defs.xml</value>  
+	     </list>
+	   </property>
+ 	</bean>
+ 	
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="order" value="1"/>
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
+    </bean>
+
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="order" value="2" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+		<property name="viewNames">
+			<list><value>jsp/*</value></list>
+		</property>
+	</bean> 
+	
+	<!-- Para gestionar ficheros. Max 10M -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	   <property name="maxUploadSize">
+	        <value>10000000</value>
+    	</property>
+	</bean>	
+
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">			
+		<property name="basenames" value="classpath:es/golemdr/tiendaweb/client/messages/ApplicationResources"/>										
+		<property name="cacheSeconds" value="0" />
+	</bean>
+  	
+  	
+  	<tx:annotation-driven transaction-manager="transactionManager"/>
+  	       
+	<bean id="placeholderConfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:es/golemdr/tiendaweb/client/database.properties"/>
+	</bean>
+	
+	<!-- Datasource -->
+	
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+      <property name="driverClassName"><value>${database.driver}</value></property>
+      <property name="url">
+        <value>${database.url}</value>
+      </property>
+      <property name="username"><value>${database.username}</value></property>
+      <property name="password"><value>${database.password}</value></property>
+    </bean>
+    
+
+	<!-- enable component scanning (beware that this does not enable mapper scanning!) -->    
+    <context:component-scan base-package="es.golemdr.tiendaweb.client.service" />
+
+    <!-- enable transaction demarcation with annotations -->
+    <tx:annotation-driven />
+
+	<!-- Configuración para Hibernate -->     
+	
+	 <bean id="transactionManager"
+        class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory" />
+    </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"  >        
+        <property name="dataSource" ref="dataSource" />
+        <property name="annotatedClasses">
+            <list>           
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+            </props>
+        </property>
+    </bean>    
+	<!-- FIN Configuración para Hibernate -->
+
+    <!-- Temas -->
+    <bean id="themeResolver" class="org.springframework.web.servlet.theme.SessionThemeResolver">
+		<property name="defaultThemeName" value="es.golemdr.tiendaweb.client.themes.tema_a"/>
+	</bean>
+	
+	<!-- Internacionalización -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+	
+	<!-- Excepciones -->
+    <bean class="es.golemdr.tiendaweb.client.ext.exceptions.resolver.CustomExceptionResolver">
+		<property name="exceptionMappings">
+			<props>			
+				<prop key="java.lang.Exception">ErrorGenerico</prop>
+				<prop key="es.golemdr.tiendaweb.client.ext.exceptions.LoginException">Login</prop>
+			</props>
+		</property>
+	</bean>	
+    
+   
+   	<!-- Services -->	
+
+   	
+   	<!-- DAOS de Hibernate -->
+
+		
+	<!-- Imports logging configuration -->
+	<import resource="trace-context.xml"/>
+	
+	
+	<!-- Configuración de JavaMail -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="localhost"/>
+        <property name="port" value="27"/>
+    </bean>
+    
+	
+	
+</beans>

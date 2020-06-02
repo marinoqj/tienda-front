@@ -1,0 +1,68 @@
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+    <definition name="baseLayout" template="/WEB-INF/jsp/common/layout.jsp">    
+        <put-attribute name="title"  value="Orex"/>
+        <put-attribute name="header" value="/WEB-INF/jsp/common/header.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/common/footer.jsp"/>
+    </definition>
+
+    <definition name="loginLayout" template="/WEB-INF/jsp/common/loginLayout.jsp">    
+        <put-attribute name="title"  value="Orex"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/common/footer.jsp"/>
+    </definition>
+    
+    <definition name="noLayout" template="/WEB-INF/jsp/common/noLayout.jsp"/>    
+    
+    
+   <definition name="Login" extends="loginLayout">
+        <put-attribute name="title" value="Página de login"/>
+        <put-attribute name="body"  value="/WEB-INF/jsp/login.jsp"/>
+    </definition>
+     
+    <definition name="Home" extends="baseLayout">
+        <put-attribute name="title" value="Página principal mediadores"/>
+        <put-attribute name="body"  value="/WEB-INF/jsp/home.jsp"/>
+    </definition>
+       
+	<definition name="ErrorGenerico" extends="baseLayout">
+	  <put-attribute name="title" value="Página de error"/>
+	  <put-attribute name="body" value="/WEB-INF/jsp/errors/generico.jsp"/>
+	</definition>      
+
+	<definition name="AccesoDenegado" extends="noLayout">
+        <put-attribute name="title" value="Acceso denegado"/>
+        <put-attribute name="body"  value="/WEB-INF/jsp/acceso_denegado.jsp"/>    
+    </definition>
+    
+    <definition name="Mensaje" extends="baseLayout">
+		<put-attribute name="title" value="Página principal telematic" />
+		<put-attribute name="body" value="/WEB-INF/jsp/common/mensaje.jsp" />
+	</definition>
+	    
+	<definition name="MensajeDinamico" extends="baseLayout">
+		<put-attribute name="title" value="Página principal telematic" />
+		<put-attribute name="body" value="/WEB-INF/jsp/common/mensajeDinamico.jsp" />
+	</definition>
+	
+	<!-- Cesta -->
+	<definition name="ListadoProductosCategoria" extends="baseLayout">
+		<put-attribute name="title" value="Productos por categoría" />
+		<put-attribute name="body" value="/WEB-INF/jsp/cesta/listadoProductosCategoria.jsp" />
+	</definition>
+    
+ 
+ 	<!-- Productos -->
+    <definition name="ProductoForm" extends="baseLayout">
+        <put-attribute name="title" value="Alta de productos"/>
+        <put-attribute name="body"  value="/WEB-INF/jsp/productos/productoForm.jsp"/>
+    </definition>
+
+    <definition name="ListadoProductos" extends="baseLayout">
+        <put-attribute name="title" value="Listado de productos"/>
+        <put-attribute name="body"  value="/WEB-INF/jsp/productos/listadoProductos.jsp"/>
+    </definition> 	
+     
+</tiles-definitions>
