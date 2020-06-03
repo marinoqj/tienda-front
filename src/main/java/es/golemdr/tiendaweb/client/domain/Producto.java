@@ -1,12 +1,18 @@
 package es.golemdr.tiendaweb.client.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+
+
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property = "idProducto", scope = Producto.class)	
 public class Producto {
 	
 
-	private Long idProducto;
+	private Long idProducto;	
 	private String nombre;
 	private String precio;
-	
+	private Categoria categoria;
 	
 	public Long getIdProducto() {
 		return idProducto;
@@ -26,6 +32,20 @@ public class Producto {
 	public void setPrecio(String precio) {
 		this.precio = precio;
 	}
+	public Categoria getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+
+	
+	
+
+	
+	
+
 	
 	
 

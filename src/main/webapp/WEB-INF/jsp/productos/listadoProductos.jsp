@@ -99,7 +99,9 @@ function mostrarConfirm(message) {
 		<thead class="blue lighten-4">
 			<tr class="bg-light">	
 		    				
-					<th><spring:message code="label.nombre.producto"/></th>					
+					<th><spring:message code="label.nombre.producto"/></th>
+					
+					<th>Categoría</th>					
 							
 					<th><spring:message code="label.precio"/></th>					
 																			
@@ -110,7 +112,9 @@ function mostrarConfirm(message) {
 		<c:forEach items="${productos}" var="producto">
 			<tr>
 			
-				<td>${producto.nombre}</td>								
+				<td>${producto.nombre}</td>	
+				
+				<td>${producto.categoria.nombre}</td>							
 			
 				<td>${producto.precio}</td>								
 								

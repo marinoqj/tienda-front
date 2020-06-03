@@ -33,7 +33,15 @@
 								<form:hidden path="idProducto"/>
 
 							</c:if>
-							
+														
+								<div class="form-group">
+									<label for="inputAddress">Categoría</label>
+									<form:select path="categoria.idCategoria" class="form-control">
+		                                <option value="">Seleccione la categoría</option>
+										<form:options items="${categorias}" itemValue="idCategoria" itemLabel="nombre" />
+									</form:select>				 
+								</div>	
+											
 
 								<div class="form-row">
 									<div class="form-group col-md-12">

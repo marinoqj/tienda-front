@@ -22,7 +22,7 @@
 	<context:component-scan base-package="es.golemdr.tiendaweb.client.controller" />
   	
   	<!-- Configures the @Controller programming model -->
-	<mvc:annotation-driven />	
+<!-- 	<mvc:annotation-driven />	 -->
   	
 	<!-- VIEWS -->
 	<bean id="excel" class="es.golemdr.tiendaweb.client.controller.views.ExcelView"/>
@@ -169,6 +169,7 @@
         <property name="port" value="27"/>
     </bean>
     
-	
-	
+ 	
+ 	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"/>
+ 	
 </beans>
