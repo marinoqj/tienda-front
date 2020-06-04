@@ -51,6 +51,7 @@ function ocultarCapa(idCapa) {
 	}
 }
 
+
 </script>
 	
 </head>
@@ -99,10 +100,18 @@ function ocultarCapa(idCapa) {
 			      <li class="nav-item active">
 			        <a class="nav-link" href='<spring:url value="/listadoProductos1.do"/>'>Productos</a>
 			      </li>	
-
-
-							      
 			    </ul>
+			    <ul class="navbar-nav">			    
+			      <li class="nav-item">
+			      <i class="fas fa-shopping-cart fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;
+			      </li>	
+			      <li class="nav-item">
+			      <h5><span class="badge badge-danger"><div id="numArticulos"></div></span></h5>&nbsp;&nbsp;&nbsp;&nbsp;
+			      </li>
+			      <li class="nav-item">
+			      <div id="cestaTotal"></div>
+			      </li>	
+			    </ul>			    
 			  </div>
 			  </div>
 			</nav>			
@@ -144,6 +153,26 @@ function ocultarCapa(idCapa) {
 				<tiles:insertAttribute name="footer" />
 	<!-- / .Footer-->
 
+<script>
+
+$(document).on('click', '.btn-comprar', function(e){
+	
+	//alert("Hola");
+	
+	$.getJSON('anyadirProducto.do', {idProducto : "1", precio : "10"},function (data) {
+		//console.log(data);
+		//alert(data);
+		var json = data;
+		//alert("Total: " + json.total);
+		$("#cestaTotal").html("&nbsp;&nbsp;&nbsp;&nbsp;" + json.total);
+		$("#numArticulos").html(json.numArticulos);
+	});
+});
+	
+
+	
+</script>
 
 </body>
 </html>
+

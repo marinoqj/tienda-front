@@ -29,7 +29,7 @@
 					<span class="card-text">${producto.precio} &euro;</span><br>
 					<br>
 					<!-- Button -->
-					<a href="#" class="btn btn-primary btn-sm">Comprar</a>
+					<a href="#" class="btn btn-primary btn-sm btn-comprar">Comprar</a>
 
 				</div>
 

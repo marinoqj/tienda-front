@@ -83,6 +83,8 @@ public class ProductosController {
 	@RequestMapping(value=UrlConstants.URL_ALTA_PRODUCTO, method=RequestMethod.GET)
 	public String verAltaForm(Model model) {
 		
+		// TODO - Recuperar categorias del servidor
+		
 		List<Categoria> categorias = new ArrayList<Categoria>();
 		Categoria categoria1 = new Categoria();
 		categoria1.setIdCategoria(1L);

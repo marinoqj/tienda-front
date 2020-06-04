@@ -13,6 +13,7 @@ public class UrlConstants {
 	
 	// Cesta
 	public static final String URL_PRODUCTOS_CATEGORIA = "/cesta/recuperarProductosCategoria{idCategoria}.do";
+	public static final String URL_ANYADIR_PRODUCTO_CESTA = "/cesta/anyadirProducto.do";
 	
 	
 	// Productos
