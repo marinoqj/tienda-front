@@ -91,9 +91,9 @@ function ocultarCapa(idCapa) {
 			          Alimentación
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="cesta/recuperarProductosCategoria1.do">Charcutería</a> 
-						<a class="dropdown-item" href="listadoComplejo.do">Pollería</a>
-						<a class="dropdown-item" href="listadoCards.do">Carnicería</a>
+						<a class="dropdown-item" href='<spring:url value="/cesta/recuperarProductosCategoria1.do"/>'>Charcutería</a> 
+						<a class="dropdown-item" href='<spring:url value="/cesta/recuperarProductosCategoria2.do"/>'>Pollería</a>
+						<a class="dropdown-item" href='<spring:url value="/cesta/recuperarProductosCategoria3.do"/>'>Carnicería</a>
 			        </div>
 			      </li>
 			      <li class="nav-item active">

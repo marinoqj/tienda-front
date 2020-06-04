@@ -85,62 +85,60 @@ function mostrarConfirm(message) {
 				</nav>
 			</div>
 		</div>
-		
-		
-		
-		
-		
-		
-		
 
-
-
-	<table class="table table-hover">
-		<thead class="blue lighten-4">
-			<tr class="bg-light">	
-		    				
-					<th><spring:message code="label.nombre.producto"/></th>
-					
-					<th>Categoría</th>					
-							
-					<th><spring:message code="label.precio"/></th>					
-																			
+        	  <!-- DataTables Example -->
+              <table class="table table-hover" id="dataTable">
+				<thead class="blue lighten-4">
+					<tr class="bg-light">	
+					<th><spring:message code="label.nombre.producto"/></th>					
+					<th>Categoría</th>											
+					<th><spring:message code="label.precio"/></th>																							
 					<th width="10%">&nbsp;</th>
-				</tr> 
-			</thead>
-			<tbody>	
-		<c:forEach items="${productos}" var="producto">
-			<tr>
-			
-				<td>${producto.nombre}</td>	
-				
-				<td>${producto.categoria.nombre}</td>							
-			
-				<td>${producto.precio}</td>								
-								
-				
-				<td>
-					<div>
-							<label data-toggle="dropdown" aria-haspopup="true"
-								aria-expanded="false"> <span style="cursor: pointer;"><i
-									class="fas fa-cog fa-lg"></i></span>
-							</label>
-							<ul class="dropdown-menu dropdown-primary">
-								<li class="nav-item dropdown"><a class="dropdown-item"
-									href="javascript:editarProducto('${producto.idProducto}')"><spring:message code="label.editar"/></a></li>
-								<li class="nav-item dropdown"><a class="dropdown-item"
-									href="javascript:mostarConfirmBorrarProducto('${producto.idProducto}')"><spring:message code="label.borrar"/></a></li>
-							</ul>
-						</div>				  
-				</td>						
-			</tr>
-		</c:forEach>
-			</tbody>
-			</table>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr class="bg-light">
+					<th><spring:message code="label.nombre.producto"/></th>					
+					<th>Categoría</th>											
+					<th><spring:message code="label.precio"/></th>																							
+					<th width="10%">&nbsp;</th>
+                  </tr>
+                </tfoot>
+                <tbody>
+					<c:forEach items="${productos}" var="producto">
+						<tr>
+						
+							<td>${producto.nombre}</td>	
+							
+							<td>${producto.categoria.nombre}</td>							
+						
+							<td>${producto.precio}</td>								
+											
+							
+							<td>
+								<div>
+										<label data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false"> <span style="cursor: pointer;"><i
+												class="fas fa-cog fa-lg"></i></span>
+										</label>
+										<ul class="dropdown-menu dropdown-primary">
+											<li class="nav-item dropdown"><a class="dropdown-item"
+												href="javascript:editarProducto('${producto.idProducto}')"><spring:message code="label.editar"/></a></li>
+											<li class="nav-item dropdown"><a class="dropdown-item"
+												href="javascript:mostarConfirmBorrarProducto('${producto.idProducto}')"><spring:message code="label.borrar"/></a></li>
+										</ul>
+									</div>				  
+							</td>						
+						</tr>
+					</c:forEach>
+                </tbody>
+              </table>		
+	
 		
 			
 		</c:if>
-		
+
+	
 		<c:if  test="${empty productos}">
 		
 			<br>
@@ -149,6 +147,9 @@ function mostrarConfirm(message) {
 			<br>
 			<center>No hay productos que mostrar...</center>
 		</c:if>
+	
+		<br>
+		<br>
 	
 		<div class="row">
 		<div class="col-md-5">
@@ -175,5 +176,15 @@ function mostrarConfirm(message) {
 		</div>
 		</div>		
 		
+
+	
 		
 		
+<script>
+
+$(document).ready(function() {
+	  $('#dataTable').DataTable();	 
+	});
+
+
+</script>		

@@ -15,15 +15,16 @@
 
 				<!-- Card image -->
 				<img class="card-img-top"
-					src='<spring:url value="static/imagenes/londres.jpg"/>' />
+					src='<spring:url value="/static/imagenes/cesta/jamon.jpg"/>' />
 
 				<!-- Card content -->
 				<div class="card-body">
 
 					<!-- Title -->
-					<h4 class="card-title">
+					<span class="card-title">
 						<a>${producto.nombre}</a>
-					</h4>
+					</span>
+					<br>
 					<!-- Text -->
 					<span class="card-text">${producto.precio} &euro;</span><br>
 					<br>
