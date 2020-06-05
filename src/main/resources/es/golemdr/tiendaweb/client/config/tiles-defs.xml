@@ -52,6 +52,10 @@
 		<put-attribute name="title" value="Productos por categoría" />
 		<put-attribute name="body" value="/WEB-INF/jsp/cesta/listadoProductosCategoria.jsp" />
 	</definition>
+    <definition name="ListadoProductosPedido" extends="baseLayout">
+        <put-attribute name="title" value="Artículos del pedido"/>
+        <put-attribute name="body"  value="/WEB-INF/jsp/cesta/listadoProductosPedido.jsp"/>
+    </definition> 	
     
  
  	<!-- Productos -->

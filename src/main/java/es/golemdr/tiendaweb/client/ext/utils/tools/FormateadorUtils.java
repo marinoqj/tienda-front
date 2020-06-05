@@ -1,6 +1,9 @@
 package es.golemdr.tiendaweb.client.ext.utils.tools;
 
+import java.text.DecimalFormat;
+
 public class FormateadorUtils {
+	
 	
 	public static String formateaNumeroRegistro(long numeroRegistro){
 		
@@ -36,6 +39,14 @@ public class FormateadorUtils {
 		int aleatorio = (int)(Math.random()* 8)+1;
 		
 		return aleatorio;
+		
+	}
+	
+	public static Double formatDouble(Double original) {
+		
+		DecimalFormat df = new DecimalFormat("#######.##");      
+		
+		return Double.valueOf(df.format(original));
 		
 	}
 

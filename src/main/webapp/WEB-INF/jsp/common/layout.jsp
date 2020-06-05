@@ -52,6 +52,18 @@ function ocultarCapa(idCapa) {
 }
 
 
+function anyadirProducto(id, price, name){
+
+	
+	$.getJSON('anyadirProducto.do', {idProducto : id, precio : price, nombre : name},function (data) {
+
+		var json = data;
+
+		$("#cestaTotal").html("&nbsp;&nbsp;&nbsp;&nbsp;" + json.total + "&nbsp;&euro;");
+		$("#numArticulos").html(json.numArticulos);
+	});
+}
+
 </script>
 	
 </head>
@@ -101,15 +113,15 @@ function ocultarCapa(idCapa) {
 			        <a class="nav-link" href='<spring:url value="/listadoProductos1.do"/>'>Productos</a>
 			      </li>	
 			    </ul>
-			    <ul class="navbar-nav">			    
+			    <ul class="navbar-nav carrito" style="cursor:pointer">			    
 			      <li class="nav-item">
 			      <i class="fas fa-shopping-cart fa-lg"></i>&nbsp;&nbsp;&nbsp;&nbsp;
 			      </li>	
 			      <li class="nav-item">
-			      <h5><span class="badge badge-danger"><div id="numArticulos"></div></span></h5>&nbsp;&nbsp;&nbsp;&nbsp;
+			      <h5><span class="badge badge-danger"><div id="numArticulos">${pedido.numArticulos}</div></span></h5>&nbsp;&nbsp;&nbsp;&nbsp;
 			      </li>
 			      <li class="nav-item">
-			      <div id="cestaTotal"></div>
+			      <div id="cestaTotal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${pedido.total}</div>
 			      </li>	
 			    </ul>			    
 			  </div>
@@ -155,21 +167,11 @@ function ocultarCapa(idCapa) {
 
 <script>
 
-$(document).on('click', '.btn-comprar', function(e){
+$(document).on('click', '.carrito', function(e){
 	
-	//alert("Hola");
+	window.location.href = '<spring:url value="/cesta/listadoProductosPedido.do"/>'
 	
-	$.getJSON('anyadirProducto.do', {idProducto : "1", precio : "10"},function (data) {
-		//console.log(data);
-		//alert(data);
-		var json = data;
-		//alert("Total: " + json.total);
-		$("#cestaTotal").html("&nbsp;&nbsp;&nbsp;&nbsp;" + json.total);
-		$("#numArticulos").html(json.numArticulos);
-	});
-});
-	
-
+	})
 	
 </script>
 

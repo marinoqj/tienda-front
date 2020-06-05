@@ -14,8 +14,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Pedido {
 	
 	private Long idPedido;
-	private Integer numArticulos;
-	private Double total;
+	private Integer numArticulos = 0;
+	private Double total = 0.0;
 	private Date fecha;
 
 	private List<Detalle> detalles = new ArrayList<Detalle>(0);
