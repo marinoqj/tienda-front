@@ -18,6 +18,9 @@ public class UrlConstants {
 	public static final String URL_INCREMENTAR_PRODUCTO_CESTA = "/cesta/incrementarProducto.do";
 	public static final String URL_REDUCIR_PRODUCTO_CESTA = "/cesta/reducirProducto.do";
 	public static final String URL_LISTADO_PRODUCTOS_PEDIDO = "/cesta/listadoProductosPedido.do";
+	public static final String URL_CONFIRMAR_PEDIDO = "/cesta/confirmarPedido.do";
+	public static final String URL_RECUPERAR_CLIENTE_DNI = "/cesta/recuperarClienteDNI.do";
+	public static final String URL_TERMINAR_PEDIDO = "/cesta/terminarPedido.do";
 	
 	
 	// Productos

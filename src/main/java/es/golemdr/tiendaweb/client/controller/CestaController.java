@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
@@ -24,15 +25,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 import es.golemdr.tiendaweb.client.controller.constantes.ForwardConstants;
 import es.golemdr.tiendaweb.client.controller.constantes.UrlConstants;
 import es.golemdr.tiendaweb.client.domain.Categoria;
+import es.golemdr.tiendaweb.client.domain.Cliente;
 import es.golemdr.tiendaweb.client.domain.Detalle;
 import es.golemdr.tiendaweb.client.domain.Pedido;
 import es.golemdr.tiendaweb.client.domain.Producto;
 import es.golemdr.tiendaweb.client.ext.utils.proyecto.PreparadorPedidos;
-import es.golemdr.tiendaweb.client.ext.utils.tools.FormateadorUtils;
 import es.golemdr.tiendaweb.client.service.CestaService;
 
 @Controller
@@ -89,7 +89,6 @@ public class CestaController {
 		
 		return objectMapper.writeValueAsString(pedido);
 	}
-
 	
 	@RequestMapping(value=UrlConstants.URL_LISTADO_PRODUCTOS_PEDIDO, method=RequestMethod.GET)
 	public String listadoProductosPedido(Model model) {
@@ -140,5 +139,53 @@ public class CestaController {
 		return ForwardConstants.FWD_LISTADO_PRODUCTOS_PEDIDO;
 		
 		
+	}
+	
+	@RequestMapping(value=UrlConstants.URL_CONFIRMAR_PEDIDO, method=RequestMethod.GET)
+	public String verDatosClienteForm(Model model) {
+		
+		model.addAttribute(new Cliente());
+		
+		return ForwardConstants.FWD_DATOS_CLIENTE_FORM;
+	}
+	
+	@RequestMapping(value=UrlConstants.URL_RECUPERAR_CLIENTE_DNI,method=RequestMethod.POST)
+	public String editar(String dni, Map<String, Object> map) {
+
+		Cliente resultado = cestaService.recuperarClienteDNI(dni);
+
+		if(resultado == null) {
+			
+			map.put("existeUsuario",false);
+			map.put("dniErroneo",true);
+			resultado = new Cliente();
+		
+		}else {
+			
+			map.put("existeUsuario",true);
+		}
+
+		map.put("cliente",resultado);
+
+
+		return ForwardConstants.FWD_DATOS_CLIENTE_FORM;
+	}
+	
+	@RequestMapping(value=UrlConstants.URL_TERMINAR_PEDIDO,method=RequestMethod.POST)
+	public String terminarPedido(@Valid Cliente cliente, Map<String, Object> map, HttpServletRequest request) {
+
+		HttpSession session = request.getSession(false);
+		
+		Pedido pedido = (Pedido)session.getAttribute("pedido");		
+		pedido.setCliente(cliente);
+		
+		cestaService.insertarPedido(pedido);
+		
+		session.removeAttribute("pedido");
+
+		map.put("mensaje", "pedido.ok");
+
+
+		return ForwardConstants.FWD_MENSAJE;
 	}
 }

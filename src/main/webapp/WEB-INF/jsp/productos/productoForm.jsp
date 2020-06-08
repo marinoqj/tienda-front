@@ -55,6 +55,12 @@
 										<label for="precio"><spring:message code="label.precio"/></label> <form:input path="precio" class="form-control"/><form:errors path="precio" element="div" id="rojo"/>
 									</div>
 								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<label for="precio">Foto</label> <form:input path="nombreFoto" class="form-control"/><form:errors path="nombreFoto" element="div" id="rojo"/>
+									</div>
+								</div>								
 					
 
 							

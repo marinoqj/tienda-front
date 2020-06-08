@@ -21,11 +21,22 @@ function incrementarProducto(idProducto){
 
 }
 
-function reducirProducto(idProducto){
+function reducirProducto(idProducto, cantidad){
 
- 	document.formulario.idProducto.value = idProducto;
- 	document.formulario.action="reducirProducto.do";
- 	document.formulario.submit();
+	if(cantidad == 1){
+		
+	    var message = '<spring:message code="confirmacion.borrar.producto"/>';	    
+	    $("#aceptarBorrar").attr("href", "javascript:eliminarProducto(" + idProducto + ");");	    
+	    mostrarConfirm(message);
+	
+	}else{
+		
+	 	document.formulario.idProducto.value = idProducto;
+	 	document.formulario.action="reducirProducto.do";
+	 	document.formulario.submit();
+	    
+	}
+
 
 }
 
@@ -67,7 +78,7 @@ function mostrarConfirm(message) {
 	<input type="hidden" name="idProducto"/>
 </form>
 				
-		<c:if  test="${!empty pedido}">           
+		<c:if  test="${!empty pedido.detalles}">           
 		
 		<br>
 		
@@ -107,7 +118,7 @@ function mostrarConfirm(message) {
 						
 							<td>${detalle.producto.precio}</td>		
 							
-							<td align="center"><i class="fas fa-minus-circle fa-lg" style="color:gray;cursor:pointer" onclick="reducirProducto(${detalle.producto.idProducto})"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${detalle.cantidad}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-plus-circle fa-lg" style="color:green;cursor:pointer" onclick="incrementarProducto(${detalle.producto.idProducto})"></i></td>	
+							<td align="center"><i class="fas fa-minus-circle fa-lg" style="color:gray;cursor:pointer" onclick="reducirProducto(${detalle.producto.idProducto},${detalle.cantidad})"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${detalle.cantidad}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-plus-circle fa-lg" style="color:green;cursor:pointer" onclick="incrementarProducto(${detalle.producto.idProducto})"></i></td>	
 							
 							<td>${detalle.producto.precio * detalle.cantidad} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-times-circle fa-lg" style="color:red;cursor:pointer" onclick="mostarConfirmEliminarProducto(${detalle.producto.idProducto})"></i></td>						
 																
@@ -122,7 +133,7 @@ function mostrarConfirm(message) {
 			<div class="row">
 				<div class="col-md-10">&nbsp;</div>
 				<div class="col-md-2">
-					<a href="home.do" class="btn btn-primary btn-sm">Confirmar pedido</a>
+					<a href="confirmarPedido.do" class="btn btn-primary btn-sm">Confirmar pedido</a>
 				</div>
 			</div>		
 			
@@ -135,7 +146,7 @@ function mostrarConfirm(message) {
 			<br>
 			<br>
 			<br>
-			<center>El pedido no tiene ningún producto...</center>
+			<center>La cesta no tiene ningún producto...</center>
 		</c:if>
 	
 		<br>

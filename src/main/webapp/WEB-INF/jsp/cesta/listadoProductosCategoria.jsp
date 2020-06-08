@@ -15,7 +15,7 @@
 
 				<!-- Card image -->
 				<img class="card-img-top"
-					src='<spring:url value="/static/imagenes/cesta/jamon.jpg"/>' />
+					src='<spring:url value="/static/imagenes/cesta/"/>${producto.nombreFoto}.jpg' />
 
 				<!-- Card content -->
 				<div class="card-body">
@@ -28,8 +28,8 @@
 					<!-- Text -->
 					<span class="card-text">${producto.precio} &euro;</span><br>
 					<br>
-					<!-- Button -->
-					<a href="#" class="btn btn-primary btn-sm btn-comprar" onclick="anyadirProducto(${producto.idProducto},${producto.precio},'${producto.nombre}')">Comprar</a>
+					<!-- Button -->					
+					<button class="btn btn-primary btn-sm btn-comprar" onclick="anyadirProducto(${producto.idProducto},${producto.precio},'${producto.nombre}')">Comprar</button>
 
 				</div>
 

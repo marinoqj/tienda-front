@@ -12,6 +12,7 @@ public class Producto {
 	private Long idProducto;	
 	private String nombre;
 	private Double precio;
+	private String nombreFoto;
 	private Categoria categoria;
 	
 	public Long getIdProducto() {
@@ -38,21 +39,12 @@ public class Producto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+	public String getNombreFoto() {
+		return nombreFoto;
+	}
+	public void setNombreFoto(String nombreFoto) {
+		this.nombreFoto = nombreFoto;
+	}
 
-
-	
-	
-
-	
-	
-
-	
-	
-
-
-
-
-
-	
 	
 }
