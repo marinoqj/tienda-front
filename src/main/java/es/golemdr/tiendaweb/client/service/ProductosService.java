@@ -17,11 +17,11 @@ import es.golemdr.tiendaweb.client.domain.Producto;
 @Service
 public class ProductosService {
 	
-	@Value("${server.name}")
-	private String SERVER;
+	//@Value("${server.name}")
+	private String SERVER = "http://localhost";
 	
-	@Value("${server.port}")
-	private String PORT;	
+	//@Value("${server.port}")
+	private String PORT = "8888";	
 	
 	private String HOST = SERVER + ":" + PORT;
 	

@@ -85,6 +85,7 @@ public class CestaController {
 		
 		detalle.setProducto(producto);
 		detalle.setCantidad(1);
+		detalle.setPrecio(producto.getPrecio());  // Si cambia el precio del producto con el tiempo, así podemos saber a cuánto se vendió en este pedido.
 		pedido.getDetalles().add(detalle);
 		
 		return objectMapper.writeValueAsString(pedido);

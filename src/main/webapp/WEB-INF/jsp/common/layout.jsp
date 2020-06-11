@@ -121,7 +121,7 @@ function anyadirProducto(id, price, name){
 			      <h5><span class="badge badge-danger"><div id="numArticulos">${pedido.numArticulos}</div></span></h5>&nbsp;&nbsp;&nbsp;&nbsp;
 			      </li>
 			      <li class="nav-item">
-			      <div id="cestaTotal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${pedido.total}</div>
+			      <div id="cestaTotal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<fmt:formatNumber type="number" pattern="#.##" value="${pedido.total}" /></div>
 			      </li>	
 			    </ul>			    
 			  </div>

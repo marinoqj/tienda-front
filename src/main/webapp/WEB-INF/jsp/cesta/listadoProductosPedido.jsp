@@ -107,7 +107,7 @@ function mostrarConfirm(message) {
 					<th>&nbsp;</th>																					
 					<th>&nbsp;</th>																							
 					<th align="center">Total</th>
-					<th>${pedido.total}</th>
+					<th><fmt:formatNumber type="number" pattern="#.##" value="${pedido.total}" /></th>
                   </tr>
                 </tfoot>
                 <tbody>
@@ -116,11 +116,11 @@ function mostrarConfirm(message) {
 						
 							<td>${detalle.producto.nombre}</td>						
 						
-							<td>${detalle.producto.precio}</td>		
+							<td><fmt:formatNumber type="number" pattern="#.##" value="${detalle.producto.precio}" /></td>		
 							
 							<td align="center"><i class="fas fa-minus-circle fa-lg" style="color:gray;cursor:pointer" onclick="reducirProducto(${detalle.producto.idProducto},${detalle.cantidad})"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${detalle.cantidad}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-plus-circle fa-lg" style="color:green;cursor:pointer" onclick="incrementarProducto(${detalle.producto.idProducto})"></i></td>	
 							
-							<td>${detalle.producto.precio * detalle.cantidad} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-times-circle fa-lg" style="color:red;cursor:pointer" onclick="mostarConfirmEliminarProducto(${detalle.producto.idProducto})"></i></td>						
+							<td><fmt:formatNumber type="number" pattern="#.##" value="${detalle.producto.precio * detalle.cantidad}"  /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fas fa-times-circle fa-lg" style="color:red;cursor:pointer" onclick="mostarConfirmEliminarProducto(${detalle.producto.idProducto})"></i></td>						
 																
 						</tr>
 					</c:forEach>
