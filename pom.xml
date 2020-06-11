@@ -4,7 +4,7 @@
 
 	<groupId>es.golemdr.tiendaweb</groupId>
 	<artifactId>client</artifactId>
-	<version>1.0</version>
+	<version>1.1</version>
 	<packaging>war</packaging>
 
 	<name>tienda-front</name>
@@ -342,6 +342,7 @@
 		  <properties>
 		    <entorno>entorno-desa</entorno>
 		    <modulo.entorno>DESA</modulo.entorno>
+		    <activatedProperties>dev</activatedProperties>
 		  </properties>
 		</profile>
 	
@@ -355,7 +356,8 @@
       </activation>		  	  
 		  <properties>
 		    <entorno>entorno-prod</entorno>
-		     <modulo.entorno>PROD</modulo.entorno>
+		    <modulo.entorno>PROD</modulo.entorno>
+		    <activatedProperties>prod</activatedProperties>
 		  </properties>
 		</profile>
 		
@@ -416,14 +418,15 @@
 				<version>6.1.22</version>
 			</plugin>
 			
-		<!-- Para no incluir el contenido estático en en WAR -->
+		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
-				<configuration>					
-					<packagingExcludes>static/**</packagingExcludes>
-				</configuration>
+<!-- Para no incluir el contenido estático en en WAR -->				
+<!-- 				<configuration>					 -->
+<!-- 					<packagingExcludes>static/**</packagingExcludes> -->
+<!-- 				</configuration> -->
 			</plugin>
 				
 			<!-- Tests --> <!-- Este plugin sirve para separar los tests unitarios de los de integración. No consigo que funcione. Revisar -->

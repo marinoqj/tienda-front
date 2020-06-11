@@ -69,20 +69,7 @@
 <!--     </filter-mapping> -->
     
     
-    <!-- Filtro para usar colecciones LAZY de Hibernate en las JSP -->
-    <filter>
-      <filter-name>hibernateFilter</filter-name>
-      <filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>
-      <init-param>
-         <param-name>sessionFactoryBeanName</param-name>
-         <param-value>sessionFactory</param-value>         
-      </init-param>      
-   </filter>
 
-   <filter-mapping>
-     <filter-name>hibernateFilter</filter-name>
-     <url-pattern>/*</url-pattern>
-   </filter-mapping> 
     
     	
 	<welcome-file-list>

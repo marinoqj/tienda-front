@@ -1,6 +1,5 @@
 package es.golemdr.tiendaweb.client.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import org.apache.commons.math3.util.Precision;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +27,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.golemdr.tiendaweb.client.controller.constantes.ForwardConstants;
 import es.golemdr.tiendaweb.client.controller.constantes.UrlConstants;
-import es.golemdr.tiendaweb.client.domain.Categoria;
 import es.golemdr.tiendaweb.client.domain.Cliente;
 import es.golemdr.tiendaweb.client.domain.Detalle;
 import es.golemdr.tiendaweb.client.domain.Pedido;
@@ -39,6 +38,7 @@ import es.golemdr.tiendaweb.client.service.CestaService;
 public class CestaController {
 	
 	private static Logger logger =  LoggerFactory.getLogger(HomeController.class);
+	
 	
     @Autowired
     ObjectMapper objectMapper;

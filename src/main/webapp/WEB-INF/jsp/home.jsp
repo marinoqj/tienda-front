@@ -8,3 +8,5 @@
 		</div>
         <div class="col-lg-1">&nbsp;</div>
     </div>
+    
+    <c:if test="${servidorUP}">UP</c:if>
