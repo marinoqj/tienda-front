@@ -182,7 +182,7 @@ public class CestaController {
 		
 		cestaService.insertarPedido(pedido);
 		
-		session.removeAttribute("pedido");
+		session.setAttribute("pedido", new Pedido());
 
 		map.put("mensaje", "pedido.ok");
 

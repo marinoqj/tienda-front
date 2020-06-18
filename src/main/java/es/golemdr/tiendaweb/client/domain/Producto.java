@@ -1,5 +1,7 @@
 package es.golemdr.tiendaweb.client.domain;
 
+
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -9,9 +11,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class Producto {
 	
 
-	private Long idProducto;	
+	private Long idProducto;
 	private String nombre;
-	private Double precio;
+	private Double precio = new Double(0);
 	private String nombreFoto;
 	private Categoria categoria;
 	

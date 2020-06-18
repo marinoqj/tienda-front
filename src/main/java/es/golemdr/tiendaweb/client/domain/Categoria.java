@@ -1,5 +1,7 @@
 package es.golemdr.tiendaweb.client.domain;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -7,6 +9,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property = "idCategoria", scope = Categoria.class)
 public class Categoria {
 	
+
 	private Long idCategoria;
 	private String nombre;
 	

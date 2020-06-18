@@ -58,8 +58,11 @@ function anyadirProducto(id, price, name){
 	$.getJSON('anyadirProducto.do', {idProducto : id, precio : price, nombre : name},function (data) {
 
 		var json = data;
-
-		$("#cestaTotal").html("&nbsp;&nbsp;&nbsp;&nbsp;" + json.total + "&nbsp;&euro;");
+		var total = ""  + json.total;  // Hay que hacer que la variable sea de tipo String porque sino no funciona.
+		
+		var totalFormateado = total.replace(".",",");
+		
+		$("#cestaTotal").html("&nbsp;&nbsp;&nbsp;&nbsp;" + totalFormateado + "&nbsp;&euro;");
 		$("#numArticulos").html(json.numArticulos);
 	});
 }

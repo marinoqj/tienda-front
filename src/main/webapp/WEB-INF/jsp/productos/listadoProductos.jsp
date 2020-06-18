@@ -112,7 +112,7 @@ function mostrarConfirm(message) {
 							
 							<td>${producto.categoria.nombre}</td>							
 						
-							<td>${producto.precio}</td>								
+							<td><fmt:formatNumber type="number" pattern="#.##" value="${producto.precio}" /></td>								
 											
 							
 							<td>

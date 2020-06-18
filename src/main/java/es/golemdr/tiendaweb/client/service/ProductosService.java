@@ -11,6 +11,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import es.golemdr.tiendaweb.client.domain.Categoria;
 import es.golemdr.tiendaweb.client.domain.Producto;
 
 
@@ -70,6 +71,16 @@ public class ProductosService {
 	
 		restTemplate.delete(HOST + "/borrarProducto" + idProducto.toString());
 		
-	}	
+	}		
+	
+	public List<Categoria> recuperarCategorias(){
+		
+		ResponseEntity<Categoria[]> response = restTemplate.getForEntity(HOST + "/recuperarCategorias", Categoria[].class);
+		
+		Categoria[] categorias = response.getBody();
+		
+		return Arrays.asList(categorias);
+
+	}
 
 }

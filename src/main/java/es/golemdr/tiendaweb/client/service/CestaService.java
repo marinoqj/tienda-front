@@ -44,8 +44,7 @@ public class CestaService {
 		return Arrays.asList(productos);
 
 	}
-	
-	
+		
 	public Cliente recuperarClienteDNI(String dni){
 		
 		// TODO - Quitar el harcode de la URI de los servicios

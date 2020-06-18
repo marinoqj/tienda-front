@@ -34,8 +34,7 @@ public class HomeController {
 
 		
 		// Cargo en sesión un objeto para almacenar los datos del pedido
-        HttpSession session = request.getSession(false);	      
-		// Cargamos al usuario en sesión				
+        HttpSession session = request.getSession(false);	      				
 	    session.setAttribute("pedido", new Pedido());
 		
 		String estadoServidor =  cestaService.checkEstado();

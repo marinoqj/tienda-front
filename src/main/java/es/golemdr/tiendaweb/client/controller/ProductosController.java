@@ -1,5 +1,6 @@
 package es.golemdr.tiendaweb.client.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import es.golemdr.tiendaweb.client.controller.constantes.ForwardConstants;
 import es.golemdr.tiendaweb.client.controller.constantes.UrlConstants;
 import es.golemdr.tiendaweb.client.domain.Categoria;
 import es.golemdr.tiendaweb.client.domain.Producto;
+import es.golemdr.tiendaweb.client.domain.ProductoForm;
 import es.golemdr.tiendaweb.client.service.ProductosService;
 
 
@@ -83,24 +85,10 @@ public class ProductosController {
 	@RequestMapping(value=UrlConstants.URL_ALTA_PRODUCTO, method=RequestMethod.GET)
 	public String verAltaForm(Model model) {
 		
-		// TODO - Recuperar categorias del servidor
-		
-		List<Categoria> categorias = new ArrayList<Categoria>();
-		Categoria categoria1 = new Categoria();
-		categoria1.setIdCategoria(1L);
-		categoria1.setNombre("Charcutería");
-		Categoria categoria2 = new Categoria();
-		categoria2.setIdCategoria(2L);
-		categoria2.setNombre("Pollería");
-		Categoria categoria3 = new Categoria();
-		categoria3.setIdCategoria(3L);
-		categoria3.setNombre("Carnicería");
-		categorias.add(categoria1);
-		categorias.add(categoria2);
-		categorias.add(categoria3);
+		List<Categoria> categorias = productosService.recuperarCategorias();
 		
 		model.addAttribute("modo", "insertar");
-		model.addAttribute(new Producto());
+		model.addAttribute(new ProductoForm());
 		model.addAttribute("categorias", categorias);
 		
 		return ForwardConstants.FWD_PRODUCTO_FORM;
@@ -111,17 +99,28 @@ public class ProductosController {
 	 * M?todo para insertar un nuevo objeto
 	 */
 	@RequestMapping(value=UrlConstants.URL_INSERTAR_PRODUCTO,method=RequestMethod.POST)
-	public String insertar(@Valid Producto producto, BindingResult result, Model model) {
+	public String insertar(@Valid ProductoForm formulario, BindingResult result, Model model) {
 		
 		String destino = null;
 		
 		if (result.hasErrors()) {
-
+			
+			List<Categoria> categorias = productosService.recuperarCategorias();
+			model.addAttribute("categorias", categorias);
+			
 			model.addAttribute("modo", "insertar");
 			destino =  ForwardConstants.FWD_PRODUCTO_FORM;
 			
 		}else{
 
+			Producto producto = new Producto();
+			producto.setNombre(formulario.getNombre());
+			producto.setPrecio(formulario.getPrecio().doubleValue());
+			producto.setNombreFoto(formulario.getNombreFoto());
+			Categoria categoria = new Categoria();
+			categoria.setIdCategoria(new Long(formulario.getIdCategoria()));
+			producto.setCategoria(categoria);
+			
 			productosService.insertarProducto(producto);
 			destino = ForwardConstants.RED_LISTADO_PRODUCTOS; 
 				
@@ -138,26 +137,26 @@ public class ProductosController {
 	@RequestMapping(value=UrlConstants.URL_EDITAR_PRODUCTO,method=RequestMethod.POST)
 	public String editar(String idProducto, Map<String, Object> map) {
 
-		Producto resultado = null;
+		Producto producto = null;
 
-		resultado = productosService.getById(new Long(idProducto));
-
-		List<Categoria> categorias = new ArrayList<Categoria>();
-		Categoria categoria1 = new Categoria();
-		categoria1.setIdCategoria(1L);
-		categoria1.setNombre("Charcutería");
-		Categoria categoria2 = new Categoria();
-		categoria2.setIdCategoria(2L);
-		categoria2.setNombre("Pollería");
-		Categoria categoria3 = new Categoria();
-		categoria3.setIdCategoria(3L);
-		categoria3.setNombre("Carnicería");
-		categorias.add(categoria1);
-		categorias.add(categoria2);
-		categorias.add(categoria3);
+		producto = productosService.getById(new Long(idProducto));
 		
+		ProductoForm formulario = new ProductoForm();
+		formulario.setIdProducto(producto.getIdProducto());
+		formulario.setNombre(producto.getNombre());
+		
+		BigDecimal bd = new BigDecimal(producto.getPrecio());		
+		formulario.setPrecio(bd.setScale(2,BigDecimal.ROUND_DOWN));
+		
+		formulario.setNombreFoto(producto.getNombreFoto());
+		formulario.setIdCategoria(producto.getCategoria().getIdCategoria().toString());
+
+		List<Categoria> categorias = productosService.recuperarCategorias();
+		
+		
+		map.put("categorias", categorias);
 		map.put("modo", "actualizar");
-		map.put("producto",resultado);
+		map.put("productoForm",formulario);
 		map.put("categorias",categorias);
 
 		return ForwardConstants.FWD_PRODUCTO_FORM;
@@ -169,18 +168,31 @@ public class ProductosController {
 	 * @throws JsonProcessingException 
 	 */	
 	@RequestMapping(value=UrlConstants.URL_ACTUALIZAR_PRODUCTO,method=RequestMethod.POST)
-	public String actualizar(@Valid Producto producto, BindingResult result, Model model) throws JsonProcessingException {
+	public String actualizar(@Valid ProductoForm formulario, BindingResult result, Model model) throws JsonProcessingException {
 
 		
 		String destino = null;
 		
 		if (result.hasErrors()) {
 		
+			List<Categoria> categorias = productosService.recuperarCategorias();
+			model.addAttribute("categorias", categorias);
+			
 			model.addAttribute("modo", "actualizar");		
 			destino = ForwardConstants.FWD_PRODUCTO_FORM;
 		
-		}else{
-				
+		}else{		
+			
+			Producto producto = new Producto();
+			producto.setIdProducto(formulario.getIdProducto());
+			producto.setNombre(formulario.getNombre());
+			producto.setPrecio(formulario.getPrecio().doubleValue());
+			producto.setNombreFoto(formulario.getNombreFoto());
+			Categoria categoria = new Categoria();
+			categoria.setIdCategoria(new Long(formulario.getIdCategoria()));
+			producto.setCategoria(categoria);
+			
+			// TODO - Sustituir por log
 			System.out.println(objectMapper.writeValueAsString(producto));
 			
 			productosService.actualizarProducto(producto);

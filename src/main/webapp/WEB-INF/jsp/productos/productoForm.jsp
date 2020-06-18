@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jsp/common/include_taglib.jsp" %>
 
 
-	<form:form modelAttribute="producto" action='${modo}Producto.do' method="post">
+	<form:form modelAttribute="productoForm" action='${modo}Producto.do' method="post">
 
 
 	<br>
@@ -36,10 +36,11 @@
 														
 								<div class="form-group">
 									<label for="inputAddress">Categoría</label>
-									<form:select path="categoria.idCategoria" class="form-control">
+									<form:select path="idCategoria" class="form-control">
 		                                <option value="">Seleccione la categoría</option>
 										<form:options items="${categorias}" itemValue="idCategoria" itemLabel="nombre" />
-									</form:select>				 
+									</form:select>
+									<form:errors path="idCategoria" element="div" id="rojo"/>			 
 								</div>	
 											
 
@@ -58,7 +59,7 @@
 								
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="precio">Foto</label> <form:input path="nombreFoto" class="form-control"/><form:errors path="nombreFoto" element="div" id="rojo"/>
+										<label for="nombreFoto">Foto</label> <form:input path="nombreFoto" class="form-control"/><form:errors path="nombreFoto" element="div" id="rojo"/>
 									</div>
 								</div>								
 					
@@ -70,6 +71,6 @@
 
 
 	</div>
-	</div>
+	</div> 
 
 	</form:form>

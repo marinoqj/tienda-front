@@ -26,7 +26,7 @@
 					</span>
 					<br>
 					<!-- Text -->
-					<span class="card-text">${producto.precio} &euro;</span><br>
+					<span class="card-text"><fmt:formatNumber type="number" pattern="#.##" value="${producto.precio}" /> &euro;</span><br>
 					<br>
 					<!-- Button -->					
 					<button class="btn btn-primary btn-sm btn-comprar" onclick="anyadirProducto(${producto.idProducto},${producto.precio},'${producto.nombre}')">Comprar</button>
