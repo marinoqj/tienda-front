@@ -29,15 +29,8 @@
   	
 	<!-- VIEWS -->
 	<bean id="excel" class="es.golemdr.tiendaweb.client.controller.views.ExcelView"/>
-	<bean id="pdf" class="es.golemdr.tiendaweb.client.controller.views.PDFView"/>
 	<bean id="download" class="es.golemdr.tiendaweb.client.controller.views.DownloadFileView"/>
-	
-		
-<!-- 	<bean id="multiReport" class="org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView"> -->
-<!-- 		<property name="url" value="classpath:jasper/ListadoReport.jrxml"/> -->
-<!-- 		<property name="reportDataKey" value="datasource"/> -->
-<!-- 	</bean> -->
-  	
+			 
   	<bean id="beanNameViewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver">
        <property name="order" value="0" />
     </bean>
@@ -116,12 +109,6 @@
 		</property>
 	</bean>	
     
-   
-   	<!-- Services -->	
-
-   	
-   	<!-- DAOS de Hibernate -->
-
 		
 	<!-- Imports logging configuration -->
 	<import resource="trace-context.xml"/>
