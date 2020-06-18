@@ -89,7 +89,7 @@ function recuperarClienteDNI(){
 								<div id="dni" style="display:none">														
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="precio"><spring:message code="label.dni"/></label> <form:input path="dni" class="form-control" id="inputDNI" readonly="${existeUsuario}"/><form:errors path="dni" element="div" id="rojo"/>
+										<label for="dni"><spring:message code="label.dni"/></label> <form:input path="dni" class="form-control" id="inputDNI" readonly="${existeUsuario}"/><form:errors path="dni" element="div" id="rojo"/>
 									</div>
 								</div>
 								</div>
@@ -105,19 +105,19 @@ function recuperarClienteDNI(){
 
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="precio"><spring:message code="label.apellidos"/></label> <form:input path="apellidos" class="form-control" readonly="${existeUsuario}"/><form:errors path="apellidos" element="div" id="rojo"/>
+										<label for="apellidos"><spring:message code="label.apellidos"/></label> <form:input path="apellidos" class="form-control" readonly="${existeUsuario}"/><form:errors path="apellidos" element="div" id="rojo"/>
 									</div>
 								</div>								
 								
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="precio"><spring:message code="label.direccion"/></label> <form:input path="direccion" class="form-control"/><form:errors path="direccion" element="div" id="rojo"/>
+										<label for="direccion"><spring:message code="label.direccion"/></label> <form:input path="direccion" class="form-control"/><form:errors path="direccion" element="div" id="rojo"/>
 									</div>
 								</div>	
 								
 								<div class="form-row">
 									<div class="form-group col-md-12">
-										<label for="precio"><spring:message code="label.telefono"/></label> <form:input path="telefono" class="form-control"/><form:errors path="telefono" element="div" id="rojo"/>
+										<label for="telefono"><spring:message code="label.telefono"/></label> <form:input path="telefono" class="form-control"/><form:errors path="telefono" element="div" id="rojo"/>
 									</div>
 								</div>									
 								
@@ -134,7 +134,7 @@ function recuperarClienteDNI(){
 							</div>
 							
 
-<c:if test="${existeUsuario}">
+<c:if test="${existeUsuario || formularioConErrores}">
 <script>
 
 mostrarFormularioCompleto();
@@ -144,6 +144,17 @@ $("#msg2").html("Puede modificar su teléfono o dirección en caso necesario, y te
 
 </script>
 </c:if>	
+
+<c:if test="${!existeUsuario && formularioConErrores}">
+<script>
+
+mostrarFormularioCompleto();
+
+$("#msg2").html("Por favor, rellene todos los campos obligatorios. Gracias");
+
+
+</script>
+</c:if>
 
 <c:if test="${dniErroneo}">
 <script>

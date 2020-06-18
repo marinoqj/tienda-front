@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.golemdr.tiendaweb.client.controller.constantes.ForwardConstants;
 import es.golemdr.tiendaweb.client.controller.constantes.UrlConstants;
+import es.golemdr.tiendaweb.client.domain.Categoria;
 import es.golemdr.tiendaweb.client.domain.Cliente;
 import es.golemdr.tiendaweb.client.domain.Detalle;
 import es.golemdr.tiendaweb.client.domain.Pedido;
@@ -173,20 +175,40 @@ public class CestaController {
 	}
 	
 	@RequestMapping(value=UrlConstants.URL_TERMINAR_PEDIDO,method=RequestMethod.POST)
-	public String terminarPedido(@Valid Cliente cliente, Map<String, Object> map, HttpServletRequest request) {
-
-		HttpSession session = request.getSession(false);
+	public String terminarPedido(@Valid Cliente cliente, BindingResult result, Map<String, Object> map, HttpServletRequest request) {
 		
-		Pedido pedido = (Pedido)session.getAttribute("pedido");		
-		pedido.setCliente(cliente);
 		
-		cestaService.insertarPedido(pedido);
+		String destino = null;
+		boolean existeUsuario = false;
 		
-		session.setAttribute("pedido", new Pedido());
+		if (result.hasErrors()) {
+			
+			if(cliente.getIdCliente() != null) {
+				existeUsuario = true;
+			}
+			
+			map.put("existeUsuario",existeUsuario);
+			map.put("formularioConErrores",true);  // Introduco este flag porque necesito mostrar el formulario completo cuando vuelvo de la validación aunque el clilente sea nuevo.
+		
+			destino = ForwardConstants.FWD_DATOS_CLIENTE_FORM;
+		
+		}else{
 
-		map.put("mensaje", "pedido.ok");
+			HttpSession session = request.getSession(false);
+			
+			Pedido pedido = (Pedido)session.getAttribute("pedido");		
+			pedido.setCliente(cliente);
+			
+			cestaService.insertarPedido(pedido);
+			
+			session.setAttribute("pedido", new Pedido());
+	
+			map.put("mensaje", "pedido.ok");
+			
+			destino = ForwardConstants.FWD_MENSAJE;
+		}
 
 
-		return ForwardConstants.FWD_MENSAJE;
+		return destino;
 	}
 }

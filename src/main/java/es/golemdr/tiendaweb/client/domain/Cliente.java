@@ -3,6 +3,9 @@ package es.golemdr.tiendaweb.client.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -12,10 +15,20 @@ public class Cliente {
 	
 	
 	private Long idCliente;
+	
+	@NotEmpty
 	private String nombre;
+	
+	@NotEmpty
 	private String apellidos;
+	
+	@Pattern(regexp="[6,9]{1}[0-9]{8}")
 	private String telefono;
+	
+	@NotEmpty
 	private String dni;
+	
+	@NotEmpty
 	private String direccion;
 	
 	private List<Pedido> pedidos = new ArrayList<Pedido>(0);
