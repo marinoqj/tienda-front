@@ -20,6 +20,7 @@ public class CestaService {
 	
 	//@Value("${server.name}")
 	private String SERVER = "http://localhost";
+	//private String SERVER = "http://10.152.183.172";
 	
 	//@Value("${server.port}")
 	private String PORT = "8888";	
