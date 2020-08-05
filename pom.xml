@@ -418,6 +418,10 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
+				<!-- Al quitar el fichero web.xml hay que añadir estas líneas para que no haya errores en el pom.xml -->
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>    
+				</configuration>				
 <!-- Para no incluir el contenido estático en en WAR -->				
 <!-- 				<configuration>					 -->
 <!-- 					<packagingExcludes>static/**</packagingExcludes> -->
